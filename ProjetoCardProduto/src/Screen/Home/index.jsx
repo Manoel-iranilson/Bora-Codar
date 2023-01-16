@@ -6,18 +6,19 @@ import {
   Grid,
   GridItem,
   Text,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import React, {useState} from 'react';
 import {Image} from '@chakra-ui/react';
-
 import sofa from '../../assets/sofa.png';
 import gif from '../../assets/gif.gif';
 import victor from '../../assets/Vector.png';
 import vectorStroke from '../../assets/VectorStroke.png';
 
 export default function HomeScreen() {
+  const isDesktop = useBreakpointValue({lg: 'none'});
   const [spin, SetSpin] = useState(false);
-  return (
+  return isDesktop ? (
     <Container mt="36" maxW="80%">
       <Center pr={'40'}>
         <Button
@@ -50,6 +51,30 @@ export default function HomeScreen() {
           </Button>
         </GridItem>
       </Grid>
+    </Container>
+  ) : (
+    <Container mt="20" flexDirection="column" textAlign="end">
+      <Button variant="link" colorScheme="teal" onClick={() => SetSpin(!spin)}>
+        {spin ? <Image src={vectorStroke} /> : <Image src={victor} />}
+      </Button>
+
+      {spin ? <Image src={gif} /> : <Image src={sofa} />}
+      <Text fontSize="1xs" color="#271A45">
+        CÓDIGO: 42404
+      </Text>
+      <Text
+        fontSize="3xl"
+        fontWeight="bold"
+        color="#271A45"
+        textShadow="0px 4px 5px #808080">
+        Sofá Margot II - Rosé
+      </Text>
+      <Text fontSize="1xs" color="#271A45" mt="2">
+        R$ 4.000
+      </Text>
+      <Button variant="custom" borderRadius="full" mt="5">
+        <Text color="#271A45">ADICIONAR À CESTA</Text>
+      </Button>
     </Container>
   );
 }
